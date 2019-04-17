@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OpenWeatherApiMVP</string>
+    <string name="add">Добавить</string>
+    <string name="inp_name_city">Введите название города</string>
+    <string name="connection_problem">Проблемы с соединением, попробуйте позже</string>
+    <string name="city_exist">Город уже имеется в списке</string>
+    <string name="update_complete">Успешно обновлено</string>
+    <string name="time_refresh">Время обновления</string>
+    <string name="current_pos">Текущее местоположение</string>
+    <string name="bottom_text">OpenWeatherMVP - A.K. Latyshev</string>
+</resources>

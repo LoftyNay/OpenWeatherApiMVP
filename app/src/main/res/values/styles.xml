@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Toolbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="DialogFragment" parent="Theme.MaterialComponents.Light.DialogWhenLarge">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Tooltip</item>
+    </style>
+
+    <style name="TimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@android:color/darker_gray</item>
+    </style>
+
+</resources>
