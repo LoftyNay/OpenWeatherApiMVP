@@ -46,6 +46,7 @@ class WeatherService : IntentService(Constants.SERVICE_NAME) {
                         result.weather[0].description
                     )
                 )
+                Log.d("GLL", result.name)
             }
     }
 

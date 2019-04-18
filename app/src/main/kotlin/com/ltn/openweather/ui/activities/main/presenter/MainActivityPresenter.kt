@@ -66,7 +66,9 @@ class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPr
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
-        viewState.showToast(context.getString(R.string.update_in_time, hourOfDay.toString(), minute.toString()))
+        var min = minute.toString()
+        if (min.length < 2) min = "0$min"
+        viewState.showToast(context.getString(R.string.update_in_time, hourOfDay.toString(), min))
     }
 
     private fun calendar(hourOfDay: Int, minute: Int): Calendar {
