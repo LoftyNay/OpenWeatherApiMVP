@@ -1,7 +1,7 @@
 package com.ltn.openweather.network
 
-import com.ltn.openweather.network.response.WeatherResponse
 import com.ltn.openweather.network.response.WeatherFindByCityNameResponse
+import com.ltn.openweather.network.response.WeatherResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

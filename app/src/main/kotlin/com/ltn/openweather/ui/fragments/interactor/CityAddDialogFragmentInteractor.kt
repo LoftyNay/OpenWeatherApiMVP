@@ -15,7 +15,7 @@ class CityAddDialogFragmentInteractor : BaseInteractor(), ICityAddDialogFragment
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .debounce(1, TimeUnit.SECONDS)
-            .filter { weResponse -> !weResponse.list.isEmpty() }
+            .filter { weResponse -> weResponse.list.isNotEmpty() }
             .subscribe(
                 { result ->
                     val listWeather: MutableList<Weather> = ArrayList()
@@ -35,7 +35,7 @@ class CityAddDialogFragmentInteractor : BaseInteractor(), ICityAddDialogFragment
                     }
                     onRequestCitiesListener.onSuccessful(listWeather)
                 },
-                { error ->
+                {
                     onRequestCitiesListener.onFailure()
                 }
             )

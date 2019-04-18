@@ -2,7 +2,6 @@ package com.ltn.openweather.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ltn.openweather.network.response.WeatherResponse
 
 @Entity
 data class Weather(

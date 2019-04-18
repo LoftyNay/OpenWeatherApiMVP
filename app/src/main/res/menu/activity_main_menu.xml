@@ -4,8 +4,8 @@
     <item
             android:id="@+id/gpsMenuItem"
             android:title="@string/current_pos"
-            android:icon="@drawable/ic_access_time_24dp"
-            app:showAsAction="always"
+            android:icon="@drawable/ic_gps_fixed_24dp"
+            app:showAsAction="ifRoom"
     />
 
     <item

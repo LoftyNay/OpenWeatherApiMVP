@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Toolbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
@@ -21,8 +21,9 @@
     </style>
 
     <style name="TimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@android:color/holo_orange_light</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorButtonNormal">@android:color/darker_gray</item>
     </style>
 
 </resources>

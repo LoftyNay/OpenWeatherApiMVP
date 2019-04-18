@@ -1,23 +1,27 @@
 package com.ltn.openweather.service
 
-import android.app.Notification
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import com.ltn.openweather.App
 import com.ltn.openweather.R
-import com.ltn.openweather.ui.activities.presenter.MainActivityPresenter
+import com.ltn.openweather.ui.activities.main.presenter.MainActivityPresenter
+import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-class WeatherReceiver(var onReceiveListener: OnReceiveListener): BroadcastReceiver() {
+
+class WeatherReceiver : BroadcastReceiver() {
+
+    @Inject
+    lateinit var eventBus: EventBus
+
+    init {
+        App.appComponent.inject(this)
+    }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action.equals(MainActivityPresenter.ACTION_UPDATE_WEATHER)) {
-            Toast.makeText(context, context?.getString(R.string.update_complete), Toast.LENGTH_SHORT).show()
-            onReceiveListener.onReceive()
+            eventBus.post(context?.resources?.getString(R.string.update_complete))
         }
-    }
-
-    interface OnReceiveListener {
-        fun onReceive()
     }
 }

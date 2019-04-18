@@ -33,10 +33,10 @@ class CityAddDialogFragment : MvpAppCompatDialogFragment(), AddCityFragmentView,
     @Inject
     lateinit var utils: Utils
 
-    lateinit var recyclerAdapter: WeatherAdapter
+    private lateinit var recyclerAdapter: WeatherAdapter
 
     companion object {
-        val TAG = "addCityDialogFragment"
+        const val TAG = "addCityDialogFragment"
 
         fun getInstance(): CityAddDialogFragment {
             return CityAddDialogFragment()
@@ -54,7 +54,6 @@ class CityAddDialogFragment : MvpAppCompatDialogFragment(), AddCityFragmentView,
         initRecycler(view)
         closeDialogButton.setOnClickListener(this)
         findCityEdit.addTextChangedListener(this)
-
         utils.showSoftKeyboard(findCityEdit)
     }
 
@@ -103,4 +102,8 @@ class CityAddDialogFragment : MvpAppCompatDialogFragment(), AddCityFragmentView,
     override fun showConnectionProblem() {
         Toast.makeText(activity, getString(R.string.connection_problem), Toast.LENGTH_SHORT).show()
     }
+
+    override fun showProgress() {}
+
+    override fun hideProgress() {}
 }

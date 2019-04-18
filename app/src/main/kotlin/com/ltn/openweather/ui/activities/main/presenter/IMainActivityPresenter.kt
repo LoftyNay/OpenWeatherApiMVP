@@ -1,4 +1,4 @@
-package com.ltn.openweather.ui.activities.presenter
+package com.ltn.openweather.ui.activities.main.presenter
 
 interface IMainActivityPresenter {
     fun loadWeathersList()

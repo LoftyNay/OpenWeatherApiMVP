@@ -15,9 +15,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(weather: Weather)
 
-    @Delete
-    fun delete(weather: Weather)
-
     @Update
     fun update(weather: Weather)
 }

@@ -1,7 +1,5 @@
 package com.ltn.openweather.dagger.module
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.ltn.openweather.Constants
 import com.ltn.openweather.network.ApiOpenWeather
 import dagger.Module

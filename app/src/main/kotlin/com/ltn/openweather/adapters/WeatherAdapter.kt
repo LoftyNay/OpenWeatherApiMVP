@@ -11,11 +11,10 @@ import com.ltn.openweather.R
 import com.ltn.openweather.model.Weather
 import com.squareup.picasso.Picasso
 
-class WeatherAdapter() :
-    RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+class WeatherAdapter() : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
-    lateinit var onCardItemClickListener: OnCardItemClickListener
-    lateinit var onCardItemLongClickListener: OnCardItemLongClickListener
+    private lateinit var onCardItemClickListener: OnCardItemClickListener
+    private lateinit var onCardItemLongClickListener: OnCardItemLongClickListener
 
     constructor(onCardItemClickListener: OnCardItemClickListener) : this() {
         this.onCardItemClickListener = onCardItemClickListener
@@ -62,7 +61,7 @@ class WeatherAdapter() :
             .load(citiesWeatherList[position].weatherIcon)
             .fit()
             .centerCrop()
-            .into(holder.imageItem);
+            .into(holder.imageItem)
 
         holder.textCity.text = "${citiesWeatherList[position].name} (${citiesWeatherList[position].country})"
         holder.textTemp.text = citiesWeatherList[position].temp.toString() + " ℃"
@@ -70,7 +69,7 @@ class WeatherAdapter() :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardItem = itemView.findViewById<MaterialCardView>(R.id.recyclerCardItem)
+        val cardItem = itemView.findViewById<MaterialCardView>(R.id.recyclerCardItem)!!
         val imageItem = itemView.findViewById<AppCompatImageView>(R.id.recyclerItemImage)
         val textCity = itemView.findViewById<TextView>(R.id.recyclerItemTextCity)
         val textTemp = itemView.findViewById<TextView>(R.id.recyclerItemTemp)

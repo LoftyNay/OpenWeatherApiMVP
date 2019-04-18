@@ -1,30 +1,27 @@
-package com.ltn.openweather.ui.activities.presenter
+package com.ltn.openweather.ui.activities.main.presenter
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.ltn.openweather.App
+import com.ltn.openweather.R
 import com.ltn.openweather.Utils
 import com.ltn.openweather.base.BasePresenter
 import com.ltn.openweather.room.WeatherDao
 import com.ltn.openweather.service.WeatherReceiver
 import com.ltn.openweather.service.WeatherService
-import com.ltn.openweather.ui.activities.view.MainActivityView
-import javax.inject.Inject
-import android.widget.Toast
-import com.ltn.openweather.ui.activities.MainActivity
-import android.content.Context.ALARM_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
+import com.ltn.openweather.ui.activities.main.view.MainActivityView
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
+import javax.inject.Inject
 
 
 @InjectViewState
-class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPresenter,
-    WeatherReceiver.OnReceiveListener {
+class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPresenter {
 
     @Inject
     lateinit var weatherDao: WeatherDao
@@ -38,19 +35,24 @@ class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPr
     @Inject
     lateinit var alarmManager: AlarmManager
 
+    @Inject
+    lateinit var eventBus: EventBus
+
     private lateinit var pendingIntent: PendingIntent
 
-    var weatherReceiver = WeatherReceiver(this)
-    var intentFilter = IntentFilter()
+    private var weatherReceiver = WeatherReceiver()
+    private var intentFilter = IntentFilter()
 
     companion object {
-        val ACTION_UPDATE_WEATHER = "com.ltn.openweather.UPDATE_OK"
+        const val ACTION_UPDATE_WEATHER = "com.ltn.openweather.UPDATE_WEATHER"
     }
 
     override fun attach() {
         App.appComponent.inject(this)
+
         intentFilter.addAction(ACTION_UPDATE_WEATHER)
         context.registerReceiver(weatherReceiver, intentFilter)
+        eventBus.register(this)
 
         val intent = Intent(context, WeatherService::class.java)
         pendingIntent = PendingIntent.getService(context, 0, intent, 0)
@@ -64,25 +66,28 @@ class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPr
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
+        viewState.showToast(context.getString(R.string.update_in_time, hourOfDay.toString(), minute.toString()))
     }
 
     private fun calendar(hourOfDay: Int, minute: Int): Calendar {
-        val calendar: Calendar = Calendar.getInstance().apply {
+        return Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, hourOfDay)
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
         }
-        return calendar
+    }
+
+    @Subscribe
+    fun onEvent(message: String) {
+        viewState.showWeathersList(weatherDao.getAll())
+        viewState.showToast(message)
+        viewState.hideProgress()
     }
 
     override fun detach() {
         context.unregisterReceiver(weatherReceiver)
-    }
-
-    override fun onReceive() {
-        viewState.showWeathersList(weatherDao.getAll())
-        viewState.hideProgress()
+        eventBus.unregister(this)
     }
 
     override fun loadWeathersList() {
@@ -100,8 +105,10 @@ class MainActivityPresenter : BasePresenter<MainActivityView>(), IMainActivityPr
             val size = weatherDao.getAll().size
             if (size != 0)
                 context.startService(intent)
+            else viewState.hideProgress()
         } else {
             viewState.showConnectionProblem()
+            viewState.hideProgress()
         }
     }
 }
