@@ -36,8 +36,7 @@ class CityAddDialogFragment : MvpAppCompatDialogFragment(), AddCityFragmentView,
     private lateinit var recyclerAdapter: WeatherAdapter
 
     companion object {
-        const val TAG = "addCityDialogFragment"
-
+        const val TAG = "CityAddDialogFragment"
         fun getInstance(): CityAddDialogFragment {
             return CityAddDialogFragment()
         }
@@ -104,6 +103,5 @@ class CityAddDialogFragment : MvpAppCompatDialogFragment(), AddCityFragmentView,
     }
 
     override fun showProgress() {}
-
     override fun hideProgress() {}
 }
